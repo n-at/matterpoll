@@ -27,6 +27,16 @@ func (p *Poll) ToPostActions(siteURL, pluginID, authorName string) []*model.Slac
 		})
 	}
 
+	if p.Settings.AdditionalOptions {
+		actions = append(actions, &model.PostAction{
+			Name: "Add Option",
+			Type: model.POST_ACTION_TYPE_BUTTON,
+			Integration: &model.PostActionIntegration{
+				URL: fmt.Sprintf("%s/plugins/%s/api/v1/polls/%s/option/add/request", siteURL, pluginID, p.ID),
+			},
+		})
+	}
+
 	actions = append(actions, &model.PostAction{
 		Name: "Delete Poll",
 		Type: model.POST_ACTION_TYPE_BUTTON,

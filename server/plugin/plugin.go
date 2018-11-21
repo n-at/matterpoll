@@ -107,3 +107,12 @@ func (p *MatterpollPlugin) HasPermission(poll *poll.Poll, issuerID string) (bool
 	}
 	return false, nil
 }
+
+func (p *MatterpollPlugin) SendEphemeralPost(channelID, userID, message string) {
+	ephemeralPost := &model.Post{}
+	ephemeralPost.ChannelId = channelID
+	ephemeralPost.UserId = userID
+	ephemeralPost.Message = message
+	ephemeralPost.AddProp("from_webhook", "true")
+	_ = p.API.SendEphemeralPost(userID, ephemeralPost)
+}
