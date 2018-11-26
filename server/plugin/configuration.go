@@ -9,6 +9,7 @@ import (
 // deserialized from the Mattermost server configuration in OnConfigurationChange.
 type configuration struct {
 	Trigger string
+	URL     string
 }
 
 // OnConfigurationChange loads the plugin configuration, validates it and saves it.

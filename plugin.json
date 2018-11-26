@@ -2,7 +2,7 @@
   "id": "com.github.matterpoll.matterpoll",
   "name": "Matterpoll",
   "description": "Polling feature for Mattermost's custom slash command",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "server": {
     "executables": {
       "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -11,13 +11,21 @@
     }
   },
   "settings_schema": {
-    "settings": [{
-     "key": "Trigger",
-     "display_name": "Trigger Word",
-     "type": "text",
-     "help_text": "Trigger Word must be unique, and cannot begin with a slash or contain any spaces.",
-     "default": "poll"
-     }],
+    "settings": [
+      {
+       "key": "Trigger",
+       "display_name": "Trigger Word",
+       "type": "text",
+       "help_text": "Trigger Word must be unique, and cannot begin with a slash or contain any spaces.",
+       "default": "poll"
+     }, {
+        "key": "URL",
+        "display_name": "Server URL",
+        "type": "text",
+        "help_text": "This server's URL.",
+        "default": ""
+      }
+    ],
      "footer": "* To report an issue, make a suggestion or a contribution, [check the repository](https://github.com/matterpoll/matterpoll)."
   }
 }

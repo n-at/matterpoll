@@ -106,8 +106,16 @@ func (p *MatterpollPlugin) handleVote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var siteUrl string
+
+	if p.configuration.URL != "" {
+		siteUrl = p.configuration.URL
+	} else {
+		siteUrl = *p.ServerConfig.ServiceSettings.SiteURL
+	}
+
 	post := &model.Post{}
-	model.ParseSlackAttachment(post, poll.ToPostActions(*p.ServerConfig.ServiceSettings.SiteURL, PluginId, displayName))
+	model.ParseSlackAttachment(post, poll.ToPostActions(siteUrl, PluginId, displayName))
 	response.Update = post
 
 	if hasVoted {

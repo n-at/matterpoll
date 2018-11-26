@@ -72,7 +72,15 @@ func (p *MatterpollPlugin) ExecuteCommand(c *plugin.Context, args *model.Command
 		return getCommandResponse(model.COMMAND_RESPONSE_TYPE_EPHEMERAL, commandGenericError, siteURL, nil), nil
 	}
 
-	actions := newPoll.ToPostActions(*p.ServerConfig.ServiceSettings.SiteURL, PluginId, displayName)
+	var siteUrl string
+
+	if p.configuration.URL != "" {
+		siteUrl = p.configuration.URL
+	} else {
+		siteUrl = *p.ServerConfig.ServiceSettings.SiteURL
+	}
+
+	actions := newPoll.ToPostActions(siteUrl, PluginId, displayName)
 	response := getCommandResponse(model.COMMAND_RESPONSE_TYPE_IN_CHANNEL, "", *p.ServerConfig.ServiceSettings.SiteURL, actions)
 	p.API.LogDebug("Created a new poll", "response", response.ToJson())
 	return response, nil
